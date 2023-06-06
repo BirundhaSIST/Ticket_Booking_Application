@@ -1,0 +1,175 @@
+#login the user details
+#select the city
+#see the movies available each theaters_names in that city
+#choose expected timing
+#select the seat 4 row and 8 column totally 32 seats available in theater
+#book the seat
+#move to payment
+#conformation
+
+profile=[{'userid':1,'username':'birundha','mailid':'birundha03@gmail.com','password':'bru@18'}]
+
+city=['--1.chennai--']
+
+movies=[{'theater_id':'ram@18','movie_id':'tiggor@5','movie_name':'the tiggor movie','language':'English','duration':'2.35 hours','realese_date':'18-04-2003'}]
+
+theater=[{'theater_id':'ram@18','theater_name':'ram_theater','location':'chennai','AC or NC':'AC','movie_name':'the tiggor movie'}]
+
+select_timing=[{'ram@18':['1.Morning show : 9.00 AM - 11.35 AM' , '2.Noon show : 12.00 AM - 2.35 PM', '3.Evening show : 3.00 PM - 5.35 PM', '4.Ninght show : 7.00 PM - 9.35 PM']}]
+
+seats=[{'1':[[0,0,1,0,0,0,1,0,1],[0,0,1,0,0,0,1,0],[1,0,1,0,0,1,1,1]]},
+       {'2':[[0,0,1,0,0,0,1,0,1],[0,1,1,0,0,0,1,0],[0,0,1,0,0,1,1,1]]},
+       {'3':[[0,0,1,0,0,1,1,0,1],[0,0,1,0,0,0,1,0],[1,0,1,0,0,1,1,1]]},
+       {'4':[[0,0,1,0,0,0,1,0,1],[0,0,1,0,0,0,1,0],[1,0,1,0,0,1,1,1]]}]
+
+booking_history=[]
+
+
+class user_profile():
+    def __init__(self):
+        self.userid=None
+        self.username=None
+        self.mail_id= None
+        self.password=None
+
+    def login_Or_sign_up(self):
+        print('--1.already have an account--\n--2.create new account--')
+        choose=int(input('enter your choice :'))
+        
+        if (choose==1):
+            self.userid=input('enter your username : ')
+            self.password=input('enter your password : ')
+            for i in profile:
+                if (i['userid']==self.userid and i['password']==self.password):
+                    print("succesfully loged in")
+                    
+        elif (choose==2):
+            self.userid=input('enter your userid : ')
+            self.mail_id= input('enter your mail_id : ')
+            self.username=input('enter your username : ')
+            self.password=input('enter your password : ')
+            profile.append({'userid':self.userid,'username':self.username,'mailid':self.mail_id,'password':self.password})
+            print("your account has been created succesfully")
+
+
+class choose_theater():
+    def __init__(self):
+        print('___________________available cities___________________')
+        for i in city:
+            print(i)
+        self.location=input("please enter your city name :")
+        for i in theater:
+            if i['location']==self.location:
+                for k in theater:
+                    print('--------------------------------------------------------------')
+                    for j in list(k):
+                        print(j+' : '+k[j])
+                    print('--------------------------------------------------------------')
+        
+        self.theater_id=input("choose the theater_id you want to watch movie : ")
+        
+
+class movie():
+    def __init__(self):
+        self.theater_id=c.theater_id
+        for i in range(0,len(movies)):
+            if self.theater_id==movies[i]['theater_id']:
+                print("--------------movie informations---------------------")
+                
+                for k in movies:
+                    for j in list(k):
+                        print(j+' : '+k[j])
+                    print('--------------------------------------------------------------')
+
+class time(): 
+    def __init__(self):
+        self.theater_id=c.theater_id
+        for i in range(0,len(theater)):
+            if theater[i]['theater_id']==self.theater_id:
+                print("\n")
+                print("_________________available timings__________________")
+                for k in select_timing:
+                    for j in k[self.theater_id]:
+                        print(j)
+                    print("--------------------------------------------------------")
+        self.time=input("enter your expected time from the list of times:")
+
+
+class booking():  
+    def __init__(self):
+        print("------------------choose one of the available seats-------------------")
+        self.time=t.time
+        y=seats[int(self.time)-1]
+        x=y[self.time]
+        l=[]
+        for i in x:
+            z=x.index(i)
+            for j in range(0,len(i)):
+                if i[j]==0:
+                    l.append((z*8)+j)
+        print(l)
+        self.n=int(input("enter the number of seats you want : "))
+        
+        s=[]
+        for i in range(self.n):
+            h=int(input("enter your "+str(i+1)+"th seat number from the list: "))
+            s.append(h)
+        for i in s:
+            if i<8:
+                x[0][i]=1
+                
+            elif i>=8 and i<=15:
+                x[1][i-8]=1
+                
+            elif i>=16 and i<=23:
+                x[2][i-16]=1
+            else:
+                print("seat number is invalid")
+                break
+        print("-------------------your seat booked succesfully please go for payment-------------------------")
+        print("\n")
+        print(x)
+
+if __name__ == "__main__":
+    l=user_profile()
+    l.login_Or_sign_up()
+    c=choose_theater()
+    m=movie()
+    t=time()
+    b=booking()
+
+
+
+
+
+
+# payment and ratings have to complete
+'''
+class payment():
+    
+    def __init__(self):
+        self.payment_id=payment_id
+        self.payment_method=payment_method
+        self.cost=cost
+        self.status_of_method=status_of_method
+
+
+        
+class ratings():
+    def  __init__(self):
+        self.rating_id=rating_id
+        self.user_id=user_id
+        self.rating=rating
+        self.review=review
+        self.movie_id=movie_id
+'''
+
+
+
+
+
+
+
+
+        
+        
